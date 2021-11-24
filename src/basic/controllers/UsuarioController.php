@@ -67,14 +67,28 @@ class UsuarioController extends Controller
     public function actionCreate()
     {
         $model = new Usuario();
-
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
-            }
-        } else {
-            $model->loadDefaultValues();
+            if ($model->load($this->request->post()))
+            if ($model->validate())
+            {
+                //si los inputs del formulario son validos hacer
+                $model->username=$_POST['Usuario']['username'];
+                $model->nombre=$_POST['Usuario']['nombre'];
+                $model->apellido=$_POST['Usuario']['apellido'];
+                $model->password=password_hash($_POST['Usuario']['password'], PASSWORD_BCRYPT);
+                $model->authKey=md5(random_bytes(5));
+                $model->accessToken=password_hash(random_bytes(5), PASSWORD_DEFAULT);
+                if ($model->save()){
+                       return $this->redirect(['view', 'id' => $model->id]);
+                } else {
+                    $model->getErrors();
+                } 
+            }else {
+                    $model->getErrors();
+                }
         }
+
+     
 
         return $this->render('create', [
             'model' => $model,
