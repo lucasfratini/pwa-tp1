@@ -23,6 +23,12 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'apellido') ?>
 
+    <?= $form->field($model, 'password') ?>
+
+    <?php // echo $form->field($model, 'accessToken') ?>
+
+    <?php // echo $form->field($model, 'authKey') ?>
+
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
         <?= Html::resetButton('Reset', ['class' => 'btn btn-outline-secondary']) ?>

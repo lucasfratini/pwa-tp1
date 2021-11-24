@@ -11,6 +11,9 @@ use Yii;
  * @property string $username
  * @property string $nombre
  * @property string $apellido
+ * @property string $password
+ * @property string $accessToken
+ * @property string $authKey
  */
 class Usuario extends \yii\db\ActiveRecord
 {
@@ -28,9 +31,10 @@ class Usuario extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nombre'], 'required'],
+            [['nombre','password', 'accessToken', 'authKey'], 'required'],
             [['username'], 'string', 'max' => 50],
             [['nombre', 'apellido'], 'string', 'max' => 100],
+            [['password', 'accessToken', 'authKey'], 'string', 'max' => 255],
         ];
     }
 
@@ -44,6 +48,9 @@ class Usuario extends \yii\db\ActiveRecord
             'username' => 'Username',
             'nombre' => 'Nombre',
             'apellido' => 'Apellido',
+            'password' => 'Password',
+            'accessToken' => 'Access Token',
+            'authKey' => 'Auth Key',
         ];
     }
 }
